@@ -99,7 +99,7 @@ public class JobAdvertisementController {
 	}
 
 	@PostMapping("/getByActiceAndFilter")
-	public Result getByActiceAndFilter(int pageNo, int pageSize, JobAdFilter jobAdFilter) {
+	public Result getByActiceAndFilter(@RequestParam int pageNo,@RequestParam int pageSize,@RequestBody JobAdFilter jobAdFilter) {
 		return advertisementService.getByIsActiveAndPageNumberAndFilter(pageNo, pageSize, jobAdFilter);
 	}
 

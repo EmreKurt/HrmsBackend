@@ -11,6 +11,8 @@ import kodlama.io.hrms.entities.dtos.JobAdvertisementDto;
 public interface JobAdvertisementService {
 	DataResult<List<JobAdvertisement>> getAll();
 	
+	DataResult<List<JobAdvertisement>> getAllByActiveFalse();
+	
 	DataResult<List<JobAdvertisement>> findByIsActiveTrue();
 	
 	DataResult<List<JobAdvertisement>> findByIsActiveTrueOrderByReleaseDate();
@@ -23,9 +25,13 @@ public interface JobAdvertisementService {
 	
 	Result updateIsConfirm(boolean isConfirm, int id);
 	
-	DataResult<List<JobAdvertisement>> findById(int id);	
+	DataResult<JobAdvertisement> getById(int id);	
 	DataResult<List<JobAdvertisement>> sortByReleaseDate();
 	DataResult<JobAdvertisement> getByJobAdId(int id);
+	
+	Result delete(int id);
+	
+	Result activate(int id, boolean isActive);
 	
 	Result create(JobAdvertisementDto jobAdDto);
 	

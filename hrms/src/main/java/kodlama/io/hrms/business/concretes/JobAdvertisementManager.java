@@ -110,8 +110,8 @@ public class JobAdvertisementManager implements JobAdvertisementService{
 	}
 
 	@Override
-	public DataResult<List<JobAdvertisement>> findById(int id) {
-		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findById(id));
+	public DataResult<JobAdvertisement> getById(int id) {
+		return new SuccessDataResult<JobAdvertisement>(this.jobAdvertisementDao.getOne(id));
 	}
 
 	@Override
@@ -199,6 +199,26 @@ public class JobAdvertisementManager implements JobAdvertisementService{
 		} catch (EntityNotFoundException exception){
             return new ErrorResult("İş ilanı bulunamadı");
         }
+	}
+
+	@Override
+	public Result activate(int id, boolean isActive) {
+		JobAdvertisement jobAdvertisementToActivate = this.jobAdvertisementDao.findById(id).orElse(null);
+		jobAdvertisementToActivate.setActive(isActive);
+		this.jobAdvertisementDao.save(jobAdvertisementToActivate);
+		return new SuccessResult("Güncellendi : Aktivasyon Durumu şu şekilde Güncellendi: " +Boolean.toString(isActive));
+	
+	}
+
+	@Override
+	public Result delete(int id) {
+		this.jobAdvertisementDao.deleteById(id);
+		return new SuccessResult("Başarıyla Silindi!");
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllByActiveFalse() {
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getAllByActiveFalse(),"Tüm pasif iş ilanları başarıyla listelendi.");
 	}
 }
 

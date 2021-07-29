@@ -25,7 +25,7 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 	
 	List<JobAdvertisement> getByIsConfirmAndIsActive(boolean isConfirm, boolean isActive);
 	
-	List<JobAdvertisement> findById(int id);
+	//List<JobAdvertisement> findById(int id);
 	
 	@Modifying
 	@Transactional
@@ -38,5 +38,8 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 			+ "and ((:#{#filter.workTimeId}) IS NULL OR j.workTime.id IN (:#{#filter.workTimeId}))"
 			+ "and j.isActive=true")
 	public Page<JobAdvertisement> getByFilter(@Param("filter") JobAdFilter jobAdFilter, Pageable pageable);
+	
+	@Query("From JobAdvertisement where isActive = false order by application_deadline asc")
+	List<JobAdvertisement> getAllByActiveFalse();
 }
 

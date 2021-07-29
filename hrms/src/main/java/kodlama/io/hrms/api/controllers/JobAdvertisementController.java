@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,8 +71,8 @@ public class JobAdvertisementController {
 	}
 
 	@GetMapping("/findbyid")
-	public DataResult<List<JobAdvertisement>> findById(int id) {
-		return this.advertisementService.findById(id);
+	public DataResult<JobAdvertisement> findById(int id) {
+		return this.advertisementService.getById(id);
 	}
 
 	@GetMapping("/getByJobAdId")
@@ -99,7 +100,8 @@ public class JobAdvertisementController {
 	}
 
 	@PostMapping("/getByActiceAndFilter")
-	public Result getByActiceAndFilter(@RequestParam int pageNo,@RequestParam int pageSize,@RequestBody JobAdFilter jobAdFilter) {
+	public Result getByActiceAndFilter(@RequestParam int pageNo, @RequestParam int pageSize,
+			@RequestBody JobAdFilter jobAdFilter) {
 		return advertisementService.getByIsActiveAndPageNumberAndFilter(pageNo, pageSize, jobAdFilter);
 	}
 
@@ -111,14 +113,29 @@ public class JobAdvertisementController {
 		}
 		return ResponseEntity.badRequest().body(result);
 	}
+
+	@PostMapping("/setActive")
+	public ResponseEntity<?> setActiveAndConfirm(@RequestParam int jobAdId, @RequestParam int staffId) {
+		Result result = this.advertisementService.setActiveAndConfirm(jobAdId, staffId);
+		if (!result.isSuccess()) {
+			ResponseEntity.badRequest().body(result);
+		}
+		return ResponseEntity.ok(result);
+	}
 	
-	 @PostMapping("/setActive")
-	    public ResponseEntity<?> setActiveAndConfirm(@RequestParam int jobAdId,@RequestParam int staffId){
-	        Result result=this.advertisementService.setActiveAndConfirm(jobAdId,staffId);
-	        if(!result.isSuccess()){
-	            ResponseEntity.badRequest().body(result);
-	        }
-	        return ResponseEntity.ok(result);
-	    }
+	@PutMapping("/activate")
+	Result activate(@RequestParam("id") int id, @RequestParam("isActive") boolean isActive) {
+		return this.advertisementService.activate(id, isActive);
+	}
+	
+	@PostMapping("/delete")
+	public Result delete(@RequestParam int id) {
+		return this.advertisementService.delete(id);
+	}
+	
+	@GetMapping("/getAllActiveFalse")
+	public DataResult<List<JobAdvertisement>> getAllByActiveFalse(){
+		return this.advertisementService.getAllByActiveFalse();
+	}
 
 }

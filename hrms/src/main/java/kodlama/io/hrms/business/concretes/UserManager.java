@@ -59,6 +59,7 @@ public class UserManager implements UserService{
 			return new ErrorDataResult<UserLoginReturnDto>("Hatalı şifre");
 		}
 		
+		
 		UserLoginReturnDto userLoginReturnDto = new UserLoginReturnDto();
 		userLoginReturnDto.setId(user.getId());
 		userLoginReturnDto.setEmail(user.getEmail());

@@ -12,17 +12,21 @@ import kodlama.io.hrms.core.result.Result;
 import kodlama.io.hrms.core.result.SuccessDataResult;
 import kodlama.io.hrms.core.result.SuccessResult;
 import kodlama.io.hrms.dataAccess.abstracts.CvDao;
+import kodlama.io.hrms.dataAccess.abstracts.SchoolDao;
 import kodlama.io.hrms.entities.concretes.CV;
+import kodlama.io.hrms.entities.concretes.School;
 
 @Service
 public class CvManager implements CvService {
 
 	private CvDao cvDao;
+	private SchoolDao schoolDao;
 
 	@Autowired
-	public CvManager(CvDao cvDao) {
+	public CvManager(CvDao cvDao,SchoolDao schoolDao) {
 		super();
 		this.cvDao = cvDao;
+		this.schoolDao = schoolDao;
 	}
 
 	@Override
@@ -129,5 +133,22 @@ public class CvManager implements CvService {
 		cv.setLinkedinAdress(linkedinlink);
 		this.cvDao.save(cv);
 		return new SuccessResult("Linkedin linki güncellendi!");
+	}
+
+	@Override
+	public Result addSchool(School school) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Result deleteSchool(int id) {
+		if(!this.schoolDao.existsById(id)) {
+			return new ErrorResult("Böyle bir okul yok!");
+		}
+		School school = this.schoolDao.getById(id);
+		school.setCv(null);
+		this.schoolDao.save(school);
+		return new SuccessResult("Okul silindi!");
 	}
 }

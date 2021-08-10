@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import kodlama.io.hrms.business.abstracts.EmployerService;
 import kodlama.io.hrms.core.result.DataResult;
@@ -26,14 +27,20 @@ public class EmployerController {
 		super();
 		this.employerService = employerService;
 	}
-	
+
 	@GetMapping("/getall")
-	public DataResult<List<Employer>> getAll(){
+	public DataResult<List<Employer>> getAll() {
 		return this.employerService.getAll();
 	}
-	
+
 	@PostMapping("/add")
-	public Result add(@RequestBody Employer employer){
+	public Result add(@RequestBody Employer employer) {
 		return this.employerService.add(employer);
 	}
+
+	@GetMapping("/getById")
+	DataResult<Employer> getById(@RequestParam int id) {
+		return this.employerService.getById(id);
+	}
+
 }

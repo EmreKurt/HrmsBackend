@@ -38,4 +38,5 @@ public interface JobAdvertisementService {
 	Result setActiveAndConfirm(int jobAdId,int staffId);
 	
 	DataResult<List<JobAdvertisement>> getByIsActiveAndPageNumberAndFilter(int pageNo, int pageSize, JobAdFilter jobAdFilter);
+	DataResult<List<JobAdvertisement>> getActiveAndCompanyId(int id);
 }

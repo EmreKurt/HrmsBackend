@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import kodlama.io.hrms.entities.concretes.CV;
+import kodlama.io.hrms.entities.concretes.School;
 
 public interface CvDao extends JpaRepository<CV, Integer>{
 	CV findByjobseekerId(int id);
@@ -12,4 +13,5 @@ public interface CvDao extends JpaRepository<CV, Integer>{
 	CV findByjobExperienceId(int id);
 	CV findByprogramLanguageId(int id);
 	CV findByimageId(int id);
+	List<CV> findBySchoolId(int id);
 }

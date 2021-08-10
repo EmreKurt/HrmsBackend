@@ -137,5 +137,10 @@ public class JobAdvertisementController {
 	public DataResult<List<JobAdvertisement>> getAllByActiveFalse(){
 		return this.advertisementService.getAllByActiveFalse();
 	}
+	
+	@GetMapping("/getActiveAndCompanyId")
+    public DataResult<List<JobAdvertisement>> getActiveAndCompanyId(@RequestParam int companyId){
+        return this.advertisementService.getActiveAndCompanyId(companyId);
+    }
 
 }

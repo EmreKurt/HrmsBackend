@@ -220,6 +220,11 @@ public class JobAdvertisementManager implements JobAdvertisementService{
 	public DataResult<List<JobAdvertisement>> getAllByActiveFalse() {
 		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getAllByActiveFalse(),"Tüm pasif iş ilanları başarıyla listelendi.");
 	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getActiveAndCompanyId(int id) {
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findByIsActiveTrueAndEmployer_Id(id),"Şirkete göre aktif iş ilanları listelendi!");
+	}
 }
 
 

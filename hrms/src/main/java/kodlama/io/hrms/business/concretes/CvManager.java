@@ -151,4 +151,12 @@ public class CvManager implements CvService {
 		this.schoolDao.save(school);
 		return new SuccessResult("Okul silindi!");
 	}
+
+	@Override
+	public DataResult<CV> getId(int id) {
+		if (!this.cvDao.existsById(id)) {
+			return new ErrorDataResult<CV>("Böyle bir cv yok");
+		}
+		return new SuccessDataResult<CV>(this.cvDao.findById(id).get());
+	}
 }

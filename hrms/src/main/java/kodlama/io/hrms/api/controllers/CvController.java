@@ -16,6 +16,8 @@ import kodlama.io.hrms.business.abstracts.CvService;
 import kodlama.io.hrms.core.result.DataResult;
 import kodlama.io.hrms.core.result.Result;
 import kodlama.io.hrms.entities.concretes.CV;
+import kodlama.io.hrms.entities.concretes.JobAdvertisement;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +48,11 @@ public class CvController {
 	 * if(result.isSuccess()) { return ResponseEntity.ok(result); } return
 	 * ResponseEntity.badRequest().body(result); }
 	 */
+	
+	@GetMapping("/getId")
+	public DataResult<CV> getId(@RequestParam int id) {
+		return this.cvService.getId(id);
+	}
 
 	@GetMapping("/getBySeekerId")
 	public ResponseEntity<?> getByJobSeekerId(@RequestParam int seekerId) {

@@ -10,6 +10,7 @@ import kodlama.io.hrms.entities.concretes.School;
 public interface CvService {
 	Result add(CV cv);
 	DataResult<List<CV>> getAll();
+	DataResult<CV> getId(int id);
 	DataResult<CV> findById(int id);
 	CV getByCvId(int id);
 	public DataResult<CV> getByJobSeekerId(int jobSeekerId);
@@ -20,8 +21,6 @@ public interface CvService {
 	public Result updateCoverLatter(String coverLatter,int cvId);
 	public Result updateGithub(String githublink, int cvId);
 	public Result updateLinkedin(String linkedinlink, int cvId);
-	
-
 	public Result addSchool(School school);
 	public Result deleteSchool(int id);
 }
